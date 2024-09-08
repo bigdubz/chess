@@ -1,6 +1,5 @@
 package com.mygdx.chess;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
@@ -28,10 +27,10 @@ public class GameScreen implements Screen {
         viewport.apply(true);
         main.getSr().begin();
         float mult = 0.04f;
-        float xstart = Gdx.graphics.getWidth()*mult;
-        float ystart = Gdx.graphics.getWidth()*mult;
-        float xend = Gdx.graphics.getWidth()*(1-mult);
-        float yend = Gdx.graphics.getHeight()*(1-mult);
+        float xstart = main.getSize()*mult;
+        float ystart = main.getSize()*mult;
+        float xend = main.getSize()*(1-mult);
+        float yend = main.getSize()*(1-mult);
         float xdiff = (xend - xstart)*0.125f;
         float ydiff = (yend - ystart)*0.125f;
         for (int i = 0; i < 9; i++) {
@@ -63,7 +62,7 @@ public class GameScreen implements Screen {
 
     @Override
     public void dispose() {
-
+        this.stage.dispose();
     }
 
     public Stage getStage() {

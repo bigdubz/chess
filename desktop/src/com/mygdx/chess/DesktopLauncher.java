@@ -13,6 +13,6 @@ public class DesktopLauncher {
 		config.setResizable(false);
 		config.setForegroundFPS(60);
 		config.setTitle("Chess");
-		new Lwjgl3Application(new Main(), config);
+		new Lwjgl3Application(new Main(s), config);
 	}
 }
