@@ -8,6 +8,9 @@ import com.mygdx.chess.Main;
 public class DesktopLauncher {
 	public static void main (String[] arg) {
 		Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
+		int s = (int) (Lwjgl3ApplicationConfiguration.getDisplayMode().height*0.89f);
+		config.setWindowedMode(s, s);
+		config.setResizable(false);
 		config.setForegroundFPS(60);
 		config.setTitle("Chess");
 		new Lwjgl3Application(new Main(), config);
