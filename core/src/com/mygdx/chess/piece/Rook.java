@@ -5,7 +5,7 @@ import com.mygdx.chess.Main;
 public class Rook extends ChessPiece {
 
     public Rook(Main main, int color) {
-        super(main, color);
+        super(main, color, color == 0 ? "wr" : "br");
     }
 
     @Override

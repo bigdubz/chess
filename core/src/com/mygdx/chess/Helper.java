@@ -1,11 +1,12 @@
 package com.mygdx.chess;
 
+import com.badlogic.gdx.Gdx;
 import com.mygdx.chess.piece.*;
 
 public class Helper {
 
     /*
-        lista de tipos:
+        números de los tipos:
             0 - peón
             1 - caballo
             2 - alfil
@@ -13,10 +14,11 @@ public class Helper {
             4 - reina
             5 - rey
 
-        lista de colores:
+        números de los colores:
             0 - blanco
             1 - negro
      */
+
     public static ChessPiece createPiece(Main main, int type, int color) {
         switch (type) {
             case 1:

@@ -5,7 +5,7 @@ import com.mygdx.chess.Main;
 public class Pawn extends ChessPiece {
 
     public Pawn(Main main, int color) {
-        super(main, color);
+        super(main, color, color == 0 ? "wp" : "bp");
     }
 
     @Override
