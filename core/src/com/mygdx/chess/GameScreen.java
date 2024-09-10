@@ -1,5 +1,6 @@
 package com.mygdx.chess;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
@@ -10,10 +11,24 @@ public class GameScreen implements Screen {
     private final ScreenViewport viewport;
     private final Stage stage;
 
+    // red
+
     public GameScreen(Main main) {
         this.main = main;
         this.viewport = new ScreenViewport();
         this.stage = new Stage();
+        this.makeSquares();
+    }
+
+    private void makeSquares() {
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                Main.squares.add(
+                        new Square(main, Main.startc + j*Main.squareSize,
+                                Main.startc + i*Main.squareSize, Main.squareSize)
+                );
+            }
+        }
     }
 
     @Override
@@ -26,16 +41,11 @@ public class GameScreen implements Screen {
         main.getSr().setProjectionMatrix(viewport.getCamera().combined);
         viewport.apply(true);
         main.getSr().begin();
-        float mult = 0.04f;
-        float xstart = main.getSize()*mult;
-        float ystart = main.getSize()*mult;
-        float xend = main.getSize()*(1-mult);
-        float yend = main.getSize()*(1-mult);
-        float xdiff = (xend - xstart)*0.125f;
-        float ydiff = (yend - ystart)*0.125f;
         for (int i = 0; i < 9; i++) {
-            main.getSr().line(xstart + i*xdiff, ystart, xstart + i*xdiff, yend);
-            main.getSr().line(xstart, ystart + i*ydiff, xend, ystart + i*ydiff);
+            main.getSr().line(Main.startc + i*Main.squareSize, Main.startc,
+                    Main.startc + i*Main.squareSize, Main.endc);
+            main.getSr().line(Main.startc, Main.startc + i*Main.squareSize,
+                    Main.endc, Main.startc + i*Main.squareSize);
         }
         main.getSr().end();
     }

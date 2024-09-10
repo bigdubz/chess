@@ -1,6 +1,5 @@
 package com.mygdx.chess;
 
-import com.badlogic.gdx.Gdx;
 import com.mygdx.chess.piece.*;
 
 public class Helper {
@@ -34,5 +33,13 @@ public class Helper {
             default:
                 return new Pawn(main, color);
         }
+    }
+
+    public static Square getSquare(int mx, int my) {
+        for (Square sq : Main.squares) {
+            if (sq.checkInside(mx, my))
+                return sq;
+        }
+        return null;
     }
 }
