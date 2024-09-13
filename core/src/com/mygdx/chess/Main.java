@@ -1,7 +1,6 @@
 package com.mygdx.chess;
 
 import com.badlogic.gdx.Game;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
@@ -39,7 +38,7 @@ public class Main extends Game {
 
 	@Override
 	public void render() {
-		ScreenUtils.clear(0, 0.05f, 0.05f, 1);
+		ScreenUtils.clear(0.5f, 0.5f, 0.5f, 1);
 		super.render();
 	}
 	

@@ -18,20 +18,20 @@ public class Helper {
             1 - negro
      */
 
-    public static ChessPiece createPiece(Main main, int type, int color) {
+    public static ChessPiece createPiece(Main main, int type, int color, Square square) {
         switch (type) {
             case 1:
-                return new Knight(main, color);
+                return new Knight(main, color, square);
             case 2:
-                return new Bishop(main, color);
+                return new Bishop(main, color, square);
             case 3:
-                return new Rook(main, color);
+                return new Rook(main, color, square);
             case 4:
-                return new Queen(main, color);
+                return new Queen(main, color, square);
             case 5:
-                return new King(main, color);
+                return new King(main, color, square);
             default:
-                return new Pawn(main, color);
+                return new Pawn(main, color, square);
         }
     }
 
