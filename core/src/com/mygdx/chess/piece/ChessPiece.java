@@ -13,7 +13,7 @@ public abstract class ChessPiece extends Actor {
 
 
     private final Sprite sprite;
-    private final int color;
+    protected final int color;
     int numMoves;
     Square square;
 
@@ -37,6 +37,8 @@ public abstract class ChessPiece extends Actor {
         this.square.setPiece(this);
         this.setPosition(this.square);
     }
+
+    public abstract void drawValidMoves();
 
     public int getClr() {
         return color;

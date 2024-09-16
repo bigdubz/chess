@@ -25,7 +25,13 @@ public class Square extends Rectangle {
         main.getSr().rect(getX(), getY(), getWidth(), getHeight());
     }
 
-    public String getSquare() {
+    public void drawPieceValidMoves() {
+        if (piece != null) {
+            piece.drawValidMoves();
+        }
+    }
+
+    public String getName() {
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 String sq = Main.lets[j] + Main.nums[i];
@@ -39,6 +45,11 @@ public class Square extends Rectangle {
 
     public void setPiece(ChessPiece piece) {
         this.piece = piece;
+    }
+
+    public void drawAsValidMove() {
+        main.getSr().setColor(0.4f, 0.4f, 0.4f, 1);
+        main.getSr().circle(getX() + getWidth()*0.5f, getY() + getHeight()*0.5f, 20);
     }
 
     public void clearPiece() {

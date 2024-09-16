@@ -12,6 +12,11 @@ public class GameScreen implements Screen {
     private final ScreenViewport viewport;
     private final Stage stage;
 
+    private boolean drawMoves = false;
+    private Square selectedSq;
+
+
+
     public GameScreen(Main main) {
         this.main = main;
         this.viewport = new ScreenViewport();
@@ -31,7 +36,7 @@ public class GameScreen implements Screen {
 
     private void addPieces() {
         for (Square square : Main.squares) {
-            String sq = square.getSquare();
+            String sq = square.getName();
             if (sq.contains("2")) {
                 square.setPiece(
                         Helper.createPiece(main, 0, 0, square)
@@ -95,8 +100,6 @@ public class GameScreen implements Screen {
         Square mouseSq = Helper.getSquare(Gdx.input.getX(), main.getSize() - Gdx.input.getY());
 
 
-
-
         main.getSr().setProjectionMatrix(viewport.getCamera().combined);
         viewport.apply(true);
         main.getSr().begin(ShapeRenderer.ShapeType.Filled);
@@ -110,6 +113,13 @@ public class GameScreen implements Screen {
 
         if (mouseSq != null) {
             mouseSq.draw();
+            if (Gdx.input.isButtonJustPressed(0)) {
+                drawMoves = !drawMoves;
+                selectedSq = mouseSq;
+            }
+        }
+        if (drawMoves && selectedSq != null) {
+            selectedSq.drawPieceValidMoves();
         }
         main.getSr().end();
 

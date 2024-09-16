@@ -42,4 +42,13 @@ public class Helper {
         }
         return null;
     }
+
+    public static Square getSquare(String name) {
+        for (Square sq : Main.squares) {
+            if (sq.getName().equals(name)) {
+                return sq;
+            }
+        }
+        return null;
+    }
 }

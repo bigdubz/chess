@@ -13,4 +13,9 @@ public class Bishop extends ChessPiece {
     protected void move(String square) {
 
     }
+
+    @Override
+    public void drawValidMoves() {
+
+    }
 }
