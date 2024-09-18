@@ -51,4 +51,13 @@ public class Helper {
         }
         return null;
     }
+
+    public static int indexOf(String[] letters, String target) {
+        for (int index = 0; index < letters.length; index++) {
+            if (letters[index].equals(target)) {
+                return index;
+            }
+        }
+        return -1;
+    }
 }
