@@ -1,5 +1,6 @@
 package com.mygdx.chess;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.chess.piece.ChessPiece;
 
@@ -7,9 +8,11 @@ public class Square extends Rectangle {
 
     Main main;
     public ChessPiece piece;
+    Color color;
 
-    public Square(Main main, float x, float y, float s) {
+    public Square(Main main, Color color, float x, float y, float s) {
         this.main = main;
+        this.color = color;
         setSize(s, s);
         setPosition(x, y);
     }
@@ -19,9 +22,13 @@ public class Square extends Rectangle {
         return this.overlaps(Main.mouse);
     }
 
-    // TEMPORARIO
+    public void drawMouseOver() {
+        main.getSr().setColor(0.8f, 0.8f, 0.706f, 1);
+        main.getSr().rect(getX(), getY(), getWidth(), getHeight());
+    }
+
     public void draw() {
-        main.getSr().setColor(0.4f, 0.4f, 0.4f, 1);
+        main.getSr().setColor(color);
         main.getSr().rect(getX(), getY(), getWidth(), getHeight());
     }
 

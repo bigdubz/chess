@@ -10,11 +10,6 @@ public class Rook extends ChessPiece {
         super(main, color, color == 0 ? "wr" : "br", square);
     }
 
-
-    @Override
-    public void move(Square square) {
-
-    }
     @Override
     public Array<Square> getValidSquares() {
         return null;

@@ -2,6 +2,7 @@ package com.mygdx.chess;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
@@ -22,10 +23,12 @@ public class GameScreen implements Screen {
     }
 
     private void makeSquares() {
+        Color[] color = new Color[]{new Color(0.46f, 0.59f, 0.34f, 1),
+                new Color(0.93f, 0.93f, 0.82f, 1)};
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 Main.squares.add(
-                        new Square(main, Main.startc + j*Main.squareSize,
+                        new Square(main, color[(j+i)%2], Main.startc + j*Main.squareSize,
                                 Main.startc + i*Main.squareSize, Main.squareSize)
                 );
             }
@@ -102,6 +105,11 @@ public class GameScreen implements Screen {
         viewport.apply(true);
         main.getSr().begin(ShapeRenderer.ShapeType.Filled);
         main.getSr().setColor(1, 1, 1, 1);
+
+        for (Square sq : Main.squares) {
+            sq.draw();
+        }
+
         for (int i = 0; i < 9; i++) {
             main.getSr().line(Main.startc + i*Main.squareSize, Main.startc,
                     Main.startc + i*Main.squareSize, Main.endc);
@@ -109,9 +117,7 @@ public class GameScreen implements Screen {
                     Main.endc, Main.startc + i*Main.squareSize);
         }
 
-
         if (mouseSq != null) {
-            mouseSq.draw();
             if (Gdx.input.isButtonJustPressed(0)) {
                 if (selectedSq != null && selectedSq.hasPiece()) {
                     if (!selectedSq.piece.getValidSquares().contains(mouseSq, true)) {
@@ -123,15 +129,16 @@ public class GameScreen implements Screen {
             }
         }
 
-        if (selectedSq != null) {
+        // Hacer un movimiento
+        if (mouseSq != null && selectedSq != null && selectedSq.hasPiece() && selectedSq.piece.checkTurn()) {
             selectedSq.drawPieceValidMoves();
             if (selectedSq.hasPiece() && selectedSq.piece.getValidSquares().contains(mouseSq, true) &&
                     Gdx.input.isButtonJustPressed(0)) {
+                main.turn = (main.turn + 1)%2;
                 selectedSq.piece.move(mouseSq);
             }
         }
         main.getSr().end();
-
         stage.draw();
     }
 

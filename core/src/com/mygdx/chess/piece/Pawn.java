@@ -12,18 +12,6 @@ public class Pawn extends ChessPiece {
     }
 
     @Override
-    public void move(Square square) {
-        if (square.hasPiece()) {
-            square.piece.remove();
-        }
-        numMoves++;
-        this.square.clearPiece();
-        this.square = square;
-        this.square.setPiece(this);
-        this.setPosition(this.square);
-    }
-
-    @Override
     public Array<Square> getValidSquares() {
         Array<Square> valid = new Array<>();
         String thisName = this.square.getName();
@@ -45,8 +33,13 @@ public class Pawn extends ChessPiece {
             }
         }
 
-        String l1 = Main.lets[Helper.indexOf(Main.lets, "" + thisName.charAt(0)) + 1];
-        String l2 = Main.lets[Helper.indexOf(Main.lets, "" + thisName.charAt(0)) - 1];
+        String l1 = "", l2 = "";
+        try {
+            l1 = Main.lets[Helper.indexOf(Main.lets, "" + thisName.charAt(0)) + 1];
+        } catch (IndexOutOfBoundsException ignored) {}
+        try {
+            l2 = Main.lets[Helper.indexOf(Main.lets, "" + thisName.charAt(0)) - 1];
+        } catch (IndexOutOfBoundsException ignored) {}
         Square s3 = Helper.getSquare(l1 + n1);
         Square s4 = Helper.getSquare(l2 + n1);
         if (s3 != null && s3.hasPiece() && s3.piece.color != this.color) {

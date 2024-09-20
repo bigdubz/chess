@@ -35,7 +35,16 @@ public abstract class ChessPiece extends Actor {
         sprite.draw(batch);
     }
 
-    public abstract void move(Square sq);
+    public void move(Square square) {
+        if (square.hasPiece()) {
+            square.piece.remove();
+        }
+        numMoves++;
+        this.square.clearPiece();
+        this.square = square;
+        this.square.setPiece(this);
+        this.setPosition(this.square);
+    }
 
     public void setSquare(Square square) {
         this.square = square;
@@ -47,21 +56,17 @@ public abstract class ChessPiece extends Actor {
         if (valid == null) return;
         for (Square sq : valid) {
             if (sq.hasPiece()) {
-                main.getSr().setColor(0.4f, 0, 0, 1);
+                main.getSr().setColor(0.85f, 0.32f, 0.13f, 1);
                 main.getSr().rect(sq.x, sq.y, sq.width, sq.height);
             }
             else {
-                main.getSr().setColor(0.2f, 0.2f, 0.2f, 1);
-                main.getSr().circle(sq.x + sq.width*0.5f, sq.y + sq.height*0.5f, 30);
+                main.getSr().setColor(0.8f, 0.8f, 0.71f, 1);
+                main.getSr().circle(sq.x + sq.width*0.5f, sq.y + sq.height*0.5f, 20);
             }
         }
     }
 
     public abstract Array<Square> getValidSquares();
-
-    public int getClr() {
-        return color;
-    }
 
     protected void setPosition(Square square) {
         this.setPosition(square.x, square.y);
