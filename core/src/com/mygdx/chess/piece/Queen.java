@@ -12,6 +12,9 @@ public class Queen extends ChessPiece {
 
     @Override
     public Array<Square> getValidSquares() {
-        return null;
+        Array<Square> valid = new Array<>();
+        valid.addAll(getRookValidSquares());
+        valid.addAll(getBishopValidSquares());
+        return valid;
     }
 }

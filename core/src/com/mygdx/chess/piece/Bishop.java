@@ -12,6 +12,6 @@ public class Bishop extends ChessPiece {
 
     @Override
     public Array<Square> getValidSquares() {
-        return null;
+        return getBishopValidSquares();
     }
 }

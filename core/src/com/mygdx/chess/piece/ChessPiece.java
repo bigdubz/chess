@@ -73,6 +73,129 @@ public abstract class ChessPiece extends Actor {
 
     public abstract Array<Square> getValidSquares();
 
+    protected Array<Square> getRookValidSquares() {
+        Array<Square> valid = new Array<>();
+        String thisName = this.square.getName();
+
+        int col = Integer.parseInt("" + thisName.charAt(1)) - 1;
+        int row = Helper.indexOf(Main.lets, "" + thisName.charAt(0));
+        Square sq;
+
+        for (int i = 1; i < 8 - col; i++) {
+            sq = Helper.getSquare(Main.lets[row]+Main.nums[col+i]);
+            if (sq != null && sq.hasPiece()) {
+                if (sq.piece.color != color) {
+                    valid.add(sq);
+                }
+                break;
+            }
+            if (sq != null)
+                valid.add(sq);
+        }
+        for (int i = 1; i <= col; i++) {
+            sq = Helper.getSquare(Main.lets[row]+Main.nums[col-i]);
+            if (sq != null && sq.hasPiece()) {
+                if (sq.piece.color != color) {
+                    valid.add(sq);
+                }
+                break;
+            }
+            if (sq != null)
+                valid.add(sq);
+        }
+        for (int i = 1; i < 8 - row; i++) {
+            sq = Helper.getSquare(Main.lets[row+i]+Main.nums[col]);
+            if (sq != null && sq.hasPiece()) {
+                if (sq.piece.color != color) {
+                    valid.add(sq);
+                }
+                break;
+            }
+            if (sq != null)
+                valid.add(sq);
+        }
+        for (int i = 1; i <= row; i++) {
+            sq = Helper.getSquare(Main.lets[row-i]+Main.nums[col]);
+            if (sq != null && sq.hasPiece()) {
+                if (sq.piece.color != color) {
+                    valid.add(sq);
+                }
+                break;
+            }
+            if (sq != null)
+                valid.add(sq);
+        }
+
+        return valid;
+    }
+
+    protected Array<Square> getBishopValidSquares() {
+        Array<Square> valid = new Array<>();
+        String thisName = this.square.getName();
+        int col = Integer.parseInt("" + thisName.charAt(1)) - 1;
+        int row = Helper.indexOf(Main.lets, "" + thisName.charAt(0));
+        Square sq;
+
+        for (int i = 1; i < 8; i++) {
+            if (row + i > 7 || col + i > 7) {
+                break;
+            }
+            sq = Helper.getSquare(Main.lets[row+i]+Main.nums[col+i]);
+            if (sq != null && sq.hasPiece()) {
+                if (sq.piece.color != color) {
+                    valid.add(sq);
+                }
+                break;
+            }
+            if (sq != null)
+                valid.add(sq);
+        }
+        for (int i = 1; i < 8; i++) {
+            if (row - i < 0 || col + i > 7) {
+                break;
+            }
+            sq = Helper.getSquare(Main.lets[row-i]+Main.nums[col+i]);
+            if (sq != null && sq.hasPiece()) {
+                if (sq.piece.color != color) {
+                    valid.add(sq);
+                }
+                break;
+            }
+            if (sq != null)
+                valid.add(sq);
+        }
+        for (int i = 1; i < 8; i++) {
+            if (row + i > 7 || col - i < 0) {
+                break;
+            }
+            sq = Helper.getSquare(Main.lets[row+i]+Main.nums[col-i]);
+            if (sq != null && sq.hasPiece()) {
+                if (sq.piece.color != color) {
+                    valid.add(sq);
+                }
+                break;
+            }
+            if (sq != null)
+                valid.add(sq);
+        }
+        for (int i = 1; i < 8; i++) {
+            if (row - i < 0 || col - i < 0) {
+                break;
+            }
+            sq = Helper.getSquare(Main.lets[row-i]+Main.nums[col-i]);
+            if (sq != null && sq.hasPiece()) {
+                if (sq.piece.color != color) {
+                    valid.add(sq);
+                }
+                break;
+            }
+            if (sq != null)
+                valid.add(sq);
+        }
+
+        return valid;
+    }
+
     protected void setPosition(Square square) {
         this.setPosition(square.x, square.y);
         this.sprite.setCenter(square.x + square.width*0.5f, square.y + square.height*0.5f);

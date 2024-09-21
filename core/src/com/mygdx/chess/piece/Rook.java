@@ -4,6 +4,7 @@ import com.badlogic.gdx.utils.Array;
 import com.mygdx.chess.Main;
 import com.mygdx.chess.Square;
 
+
 public class Rook extends ChessPiece {
 
     public Rook(Main main, int color, Square square) {
@@ -12,6 +13,6 @@ public class Rook extends ChessPiece {
 
     @Override
     public Array<Square> getValidSquares() {
-        return null;
+        return getRookValidSquares();
     }
 }
