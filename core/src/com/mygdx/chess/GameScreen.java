@@ -23,12 +23,11 @@ public class GameScreen implements Screen {
     }
 
     private void makeSquares() {
-        Color[] color = new Color[]{new Color(0.46f, 0.59f, 0.34f, 1),
-                new Color(0.93f, 0.93f, 0.82f, 1)};
+        Color[] color = new Color[]{Helper.c1, Helper.c2};
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 Main.squares.add(
-                        new Square(main, color[(j+i)%2], Main.startc + j*Main.squareSize,
+                        new Square(main, color[(j + i)%2], Main.startc + j*Main.squareSize,
                                 Main.startc + i*Main.squareSize, Main.squareSize)
                 );
             }
@@ -38,54 +37,25 @@ public class GameScreen implements Screen {
     private void addPieces() {
         for (Square square : Main.squares) {
             String sq = square.getName();
-            if (sq.contains("2")) {
-                square.setPiece(
-                        Helper.createPiece(main, 0, 0, square)
-                );
-            } else if (sq.equals("A1") || sq.equals("H1")) {
-                square.setPiece(
-                        Helper.createPiece(main, 3, 0, square)
-                );
-            } else if (sq.equals("B1") || sq.equals("G1")) {
-                square.setPiece(
-                        Helper.createPiece(main, 1, 0, square)
-                );
-            } else if (sq.equals("C1") || sq.equals("F1")) {
-                square.setPiece(
-                        Helper.createPiece(main, 2, 0, square)
-                );
-            } else if (sq.equals("D1")) {
-                square.setPiece(
-                        Helper.createPiece(main, 4, 0, square)
-                );
-            } else if (sq.equals("E1")) {
-                square.setPiece(
-                        Helper.createPiece(main, 5, 0, square)
-                );
-            } else if (sq.contains("7")) {
-                square.setPiece(
-                        Helper.createPiece(main, 0, 1, square)
-                );
-            } else if (sq.equals("A8") || sq.equals("H8")) {
-                square.setPiece(
-                        Helper.createPiece(main, 3, 1, square)
-                );
-            } else if (sq.equals("B8") || sq.equals("G8")) {
-                square.setPiece(
-                        Helper.createPiece(main, 1, 1, square)
-                );
-            } else if (sq.equals("C8") || sq.equals("F8")) {
-                square.setPiece(
-                        Helper.createPiece(main, 2, 1, square)
-                );
-            } else if (sq.equals("D8")) {
-                square.setPiece(
-                        Helper.createPiece(main, 4, 1, square)
-                );
-            } else if (sq.equals("E8")) {
-                square.setPiece(
-                        Helper.createPiece(main, 5, 1, square)
-                );
+            int type = 0;
+            int color = sq.charAt(1) == '8' || sq.charAt(1) == '7' ? 1 : 0;
+
+            if (sq.charAt(1) != '2' && sq.charAt(1) != '7') {
+                if (sq.charAt(0) == 'A' || sq.charAt(0) == 'H') {
+                    type = 3;
+                } else if (sq.charAt(0) == 'B' || sq.charAt(0) == 'G') {
+                    type = 1;
+                } else if (sq.charAt(0) == 'C' || sq.charAt(0) == 'F') {
+                    type = 2;
+                } else if (sq.charAt(0) == 'D') {
+                    type = 4;
+                } else if (sq.charAt(0) == 'E') {
+                    type = 5;
+                }
+            }
+
+            if (sq.charAt(1) == '1' || sq.charAt(1) == '2' || sq.charAt(1) == '7' || sq.charAt(1) == '8') {
+                square.setPiece(Helper.createPiece(main, type, color, square));
             }
         }
     }
@@ -104,17 +74,18 @@ public class GameScreen implements Screen {
         main.getSr().setProjectionMatrix(viewport.getCamera().combined);
         viewport.apply(true);
         main.getSr().begin(ShapeRenderer.ShapeType.Filled);
-        main.getSr().setColor(1, 1, 1, 1);
 
         for (Square sq : Main.squares) {
             sq.draw();
         }
 
-        for (int i = 0; i < 9; i++) {
-            main.getSr().line(Main.startc + i*Main.squareSize, Main.startc,
-                    Main.startc + i*Main.squareSize, Main.endc);
-            main.getSr().line(Main.startc, Main.startc + i*Main.squareSize,
-                    Main.endc, Main.startc + i*Main.squareSize);
+        if (selectedSq != null && selectedSq.hasPiece()) {
+            if (selectedSq.color == Helper.c1) {
+                main.getSr().setColor(Helper.c6);
+            } else {
+                main.getSr().setColor(Helper.c5);
+            }
+            main.getSr().rect(selectedSq.x, selectedSq.y, selectedSq.width, selectedSq.height);
         }
 
         if (mouseSq != null) {

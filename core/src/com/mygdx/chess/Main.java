@@ -16,7 +16,7 @@ public class Main extends Game {
 	public static Array<Square> squares;
 	public static String[] lets = {"A", "B", "C", "D", "E", "F", "G", "H", "X", "Y"};
 	public static String[] nums = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10"};
-	public static float mult = 0.04f;
+	public static float mult = 0;
 	public static float startc;
 	public static float endc;
 	public static float squareSize;

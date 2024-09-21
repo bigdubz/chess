@@ -8,7 +8,7 @@ public class Square extends Rectangle {
 
     Main main;
     public ChessPiece piece;
-    Color color;
+    public Color color;
 
     public Square(Main main, Color color, float x, float y, float s) {
         this.main = main;

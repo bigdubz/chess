@@ -9,6 +9,7 @@ import com.badlogic.gdx.utils.Array;
 import com.mygdx.chess.GameScreen;
 import com.mygdx.chess.Main;
 import com.mygdx.chess.Square;
+import com.mygdx.chess.Helper;
 
 public abstract class ChessPiece extends Actor {
 
@@ -60,7 +61,11 @@ public abstract class ChessPiece extends Actor {
                 main.getSr().rect(sq.x, sq.y, sq.width, sq.height);
             }
             else {
-                main.getSr().setColor(0.8f, 0.8f, 0.71f, 1);
+                if (sq.color == Helper.c1) {
+                    main.getSr().setColor(Helper.c3);
+                } else {
+                    main.getSr().setColor(Helper.c4);
+                }
                 main.getSr().circle(sq.x + sq.width*0.5f, sq.y + sq.height*0.5f, 20);
             }
         }
