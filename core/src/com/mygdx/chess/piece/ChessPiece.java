@@ -196,7 +196,11 @@ public abstract class ChessPiece extends Actor {
         return valid;
     }
 
-    protected void setPosition(Square square) {
+    public void followCursor(int x, int y) {
+        this.sprite.setCenter(x, y);
+    }
+
+    public void setPosition(Square square) {
         this.setPosition(square.x, square.y);
         this.sprite.setCenter(square.x + square.width*0.5f, square.y + square.height*0.5f);
     }

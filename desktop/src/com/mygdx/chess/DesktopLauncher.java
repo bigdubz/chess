@@ -10,7 +10,7 @@ public class DesktopLauncher {
 		int s = (int) (Lwjgl3ApplicationConfiguration.getDisplayMode().height*0.9f);
 		config.setWindowedMode(s, s);
 		config.setResizable(false);
-		config.setForegroundFPS(60);
+		config.setForegroundFPS(165);
 		config.setTitle("Chess");
 		config.useVsync(true);
 		config.setBackBufferConfig(8,8,8,8,16,0,8);

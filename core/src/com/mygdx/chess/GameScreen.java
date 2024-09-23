@@ -3,6 +3,7 @@ package com.mygdx.chess;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Cursor;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
@@ -13,7 +14,6 @@ public class GameScreen implements Screen {
     private final ScreenViewport viewport;
     private final Stage stage;
     private Square selectedSq;
-
 
 
     public GameScreen(Main main) {
@@ -89,6 +89,11 @@ public class GameScreen implements Screen {
         }
 
         if (mouseSq != null) {
+            if (mouseSq.hasPiece()) {
+                Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Hand);
+            } else {
+                Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow);
+            }
             if (Gdx.input.isButtonJustPressed(0)) {
                 if (selectedSq != null && selectedSq.hasPiece()) {
                     if (!selectedSq.piece.getValidSquares().contains(mouseSq, true)) {
@@ -109,6 +114,21 @@ public class GameScreen implements Screen {
                 selectedSq.piece.move(mouseSq);
             }
         }
+
+        if (selectedSq != null && selectedSq.hasPiece()) {
+            if (Gdx.input.isButtonPressed(0)) {
+                selectedSq.piece.followCursor(Gdx.input.getX(), Gdx.graphics.getHeight() - Gdx.input.getY());
+            } else {
+                if (mouseSq != null && selectedSq.piece.getValidSquares().contains(mouseSq, true) &&
+                        selectedSq.piece.checkTurn()) {
+                    main.turn = (main.turn + 1)%2;
+                    selectedSq.piece.move(mouseSq);
+                } else {
+                    selectedSq.piece.setPosition(selectedSq);
+                }
+            }
+        }
+
         main.getSr().end();
         stage.draw();
     }
