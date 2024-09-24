@@ -14,6 +14,7 @@ public class GameScreen implements Screen {
     private final ScreenViewport viewport;
     private final Stage stage;
     private Square selectedSq;
+    private boolean justReleased = false;
 
 
     public GameScreen(Main main) {
@@ -95,7 +96,7 @@ public class GameScreen implements Screen {
                 Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow);
             }
             if (Gdx.input.isButtonJustPressed(0)) {
-                if (selectedSq != null && selectedSq.hasPiece()) {
+                if (selectedSq != null && selectedSq.hasPiece() && selectedSq.piece.checkTurn()) {
                     if (!selectedSq.piece.getValidSquares().contains(mouseSq, true)) {
                         selectedSq = mouseSq;
                     }
@@ -117,8 +118,9 @@ public class GameScreen implements Screen {
 
         if (selectedSq != null && selectedSq.hasPiece()) {
             if (Gdx.input.isButtonPressed(0)) {
+                justReleased = true;
                 selectedSq.piece.followCursor(Gdx.input.getX(), Gdx.graphics.getHeight() - Gdx.input.getY());
-            } else {
+            } else if (justReleased) {
                 if (mouseSq != null && selectedSq.piece.getValidSquares().contains(mouseSq, true) &&
                         selectedSq.piece.checkTurn()) {
                     main.turn = (main.turn + 1)%2;
@@ -126,6 +128,7 @@ public class GameScreen implements Screen {
                 } else {
                     selectedSq.piece.setPosition(selectedSq);
                 }
+                justReleased = false;
             }
         }
 
